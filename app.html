@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkbox Calculation</title>
+  <style>
+        /* Style to place radio buttons and labels inline */
+        .inline-group input[type="checkbox"],
+        .inline-group label {
+            display: flex;
+            margin-right: 10px; /* Optional: Add some spacing between the radio button and label */
+            align-items: center;
+        }
+        /* Style to stack checkboxes and labels vertically */
+        .vertical-group input[type="radio"],
+        .vertical-group label {
+            margin-right: 10px; /* Optional: Add some spacing between the radio button and label */
+            
+        }
+  </style>
+</head>
+<body>
+
+  <h3>Age</h3>
+    <div class="vertical-group">
+		  <!-- Radio buttons for age -->
+	    <input type="radio" id="baby" name="age" value="0">
+	    <label for="baby"><1</label>
+
+	    <input type="radio" id="infant" name="age" value="1">
+	    <label for="infant">1-2</label>
+	    
+	    <input type="radio" id="veryyoungchild" name="age" value="2">
+	    <label for="veryoungchild">3-5</label>
+
+	    <input type="radio" id="youngchild" name="age" value="3">
+	    <label for="youngchild">6-10</label>
+	    
+	    <input type="radio" id="childorteen" name="age" value="4">
+	    <label for="childorteen">11-17</label>
+	    
+	    <input type="radio" id="adult" name="age" value="5">
+	    <label for="adult">18+</label>
+    </div>
+    
+    
+  <h3>Body areas effected</h3>
+  <div class="inline-group">
+  <form id="checkboxForm">
+    <label class="check1">
+      <input type="checkbox" name="checkbox" value="1"> Face + neck
+    </label>
+    <label>
+      <input type="checkbox" name="checkbox" value="2"> Left Arm
+    </label>
+    <label>
+      <input type="checkbox" name="checkbox" value="3"> Right Arm
+    </label>
+    <label>
+      <input type="checkbox" name="checkbox" value="4"> Left Leg
+    </label>
+    <label>
+      <input type="checkbox" name="checkbox" value="5"> Right leg
+    </label>
+    <label>
+      <input type="checkbox" name="checkbox" value="6"> Chest and tummy
+    </label>
+    <label>
+      <input type="checkbox" name="checkbox" value="7"> Back and buttocks
+    </label>
+
+    <button type="button" onclick="calculateTotal()">Calculate Total</button>
+  </form>
+  </div>
+
+  <p id="result">Total: 0</p>
+
+  <script>
+  let matrix = [
+    [1.0, 1.0, 1.0, 1.5, 1.5, 1.0, 1.5],
+    [1.5, 1.5, 1.5, 2.0, 2.0, 2.0, 3.0],
+    [1.5, 2.0, 2.0, 3.0, 3.0, 3.0, 3.5],
+    [2.0, 2.5, 2.5, 4.5, 4.5, 3.5, 5.0],
+    [2.0, 3.0, 3.0, 6.0, 6.0, 5.0, 5.0],
+    [2.5, 4.0, 4.0, 8.0, 8.0, 7.0, 7.0]
+];
+    function calculateTotal() {
+      let total = 0;
+      let age = document.getElementsByName("age");
+      selectedValue = null;
+      age.forEach(function(radio) {
+            if (radio.checked) {
+                selectedValue = radio.value;
+            }
+        });
+	let amountsArray = [];	
+      let amounts = document.getElementsByName("checkbox");
+      amounts.forEach(function(check) {
+            if (check.checked) {
+                amountsArray.push(check.value);
+            }
+        });
+       let finalAmount = 0;
+       
+       for (let i = 0; i < amountsArray.length; i++) {
+    		finalAmount += matrix[selectedValue][amountsArray[i]-1];
+	}
+	total = finalAmount;
+	
+      document.getElementById('result').textContent = 'Total: ' + total + " FTU" + " or " + total/2 + " grams per application";
+    }
+  </script>
+
+</body>
+</html>
